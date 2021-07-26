@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
+import { CoreModule } from '../core/core.module';
 
 const sharedModules = [
   BrowserModule
@@ -10,7 +11,7 @@ const sharedModules = [
   declarations: [],
   imports: [
     CommonModule,
-    BrowserModule,
+    BrowserModule
   ],
   exports: [
     ...sharedModules

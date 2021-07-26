@@ -13,7 +13,7 @@ import { HomeComponent } from './pages/home/home.component';
     HomeComponent
   ],
   imports: [
-    CoreModule,
+    CoreModule.forRoot(),
     SharedModule,
     AppRoutingModule
   ],

@@ -23,7 +23,9 @@ const routerMatchers: Map<string, {path: RegExp, method: string, action: any}> =
 @Injectable()
 class FakeBackendService implements HttpInterceptor {
 
-  constructor() { }
+  constructor() {
+    console.log(`I'm the fakebackend provider`);
+  }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
