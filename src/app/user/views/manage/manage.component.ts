@@ -16,17 +16,26 @@ export class ManageComponent implements OnInit {
     private formBuilder: FormBuilder
   ) { }
 
+  public get formControl(): any {
+    return this.form.controls;
+  }
+
+
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       nickname: [
         '',
-        Validators.required,
-        Validators.minLength(8)
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(8)
+        ])
       ],
       email: [
         '',
-        Validators.required,
-        Validators.pattern(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)
+        [
+          Validators.required,
+          Validators.pattern(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)
+        ]
       ],
       confirmEmail: [
         '',
@@ -34,13 +43,16 @@ export class ManageComponent implements OnInit {
       ],
       password: [
         '',
+      [
         Validators.required,
-        Validators.minLength(8)
+        Validators.minLength(8)]
       ],
       confirmPassword: [
         '',
-        Validators.required,
-        Validators.minLength(8)
+        [
+          Validators.required,
+          Validators.minLength(8)
+        ]
       ]
     });
   }
