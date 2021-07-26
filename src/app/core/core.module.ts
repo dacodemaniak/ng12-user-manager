@@ -9,9 +9,11 @@ import { ModuleLoadedOnce } from './helpers/module-loaded-once';
     CommonModule
   ]
 })
-export class CoreModule extends ModuleLoadedOnce {
+export class CoreModule {
   public constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
-    super(parentModule);
+    if (parentModule) {
+      throw new Error(`CoreModule has already been loaded in AppModule`);
+    }
   }
 
   public static forRoot(): ModuleWithProviders<CoreModule> {

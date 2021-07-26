@@ -13,6 +13,11 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
+    path: 'user',
+    loadChildren: () => import('./user/user.module')
+      .then((module) => module.UserModule)
+  },
+  {
     path: '**',
     redirectTo: 'home',
     pathMatch: 'full'
