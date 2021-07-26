@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HasUsersGuard } from './guards/has-users.guard';
 import { ListComponent } from './views/list/list.component';
 import { ManageComponent } from './views/manage/manage.component';
 
@@ -11,7 +12,10 @@ const routes: Routes = [
   },
   {
     path: 'list',
-    component: ListComponent
+    component: ListComponent,
+    canActivate: [
+      HasUsersGuard
+    ]
   },
   {
     path:'add',

@@ -1,1 +1,24 @@
-<p>manage works!</p>
+<form [formGroup]="form">
+  <input type="text" appRequired car="*" formControlName="nickname" placeholder="Nickname..." autocomplete="off">
+
+  <input type="mail" formControlName="email" placeholder="Email..." autocomplete="off">
+
+  <input type="mail" formControlName="confirmEmail" placeholder="Email..." autocomplete="off">
+
+  <input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Password..." autocomplete="off">
+
+  <input type="password" formControlName="confirmPassword" placeholder="Confirm password..." autocomplete="off">
+
+  <button
+    type="button"
+    (click)="showPassword = !showPassword"
+    id="togglePassword"
+  >
+    {{ showPassword ? 'Masquer' : 'Montrer' }}
+  </button>
+  <button [disabled]="form.invalid">
+    Save
+  </button>
+</form>
+
+{{ form.value | json }}

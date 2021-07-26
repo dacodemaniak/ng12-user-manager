@@ -2,16 +2,22 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RequiredDirective } from './directives/required.directive';
 
 const sharedModules = [
-  HttpClientModule
+  HttpClientModule,
+  ReactiveFormsModule
 ];
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    RequiredDirective
+  ],
   imports: [],
   exports: [
-    ...sharedModules
+    ...sharedModules,
+    RequiredDirective
   ]
 })
 export class SharedModule { }
