@@ -24,7 +24,11 @@ const routerMatchers: Map<string, {path: RegExp, method: string, action: any}> =
     }
   );
 
-@Injectable()
+@Injectable(
+  {
+    providedIn: 'root'
+  }
+)
 class FakeBackendService implements HttpInterceptor {
 
   constructor() {

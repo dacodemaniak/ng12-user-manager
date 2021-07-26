@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { UserRoutingModule } from './user-routing.module';
 import { ListComponent } from './views/list/list.component';
@@ -12,8 +11,7 @@ import { ManageComponent } from './views/manage/manage.component';
     ManageComponent
   ],
   imports: [
-    CommonModule,
-    UserRoutingModule
+    UserRoutingModule,
   ]
 })
 export class UserModule { }
