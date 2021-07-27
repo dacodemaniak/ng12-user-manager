@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HasUsersGuard } from './guards/has-users.guard';
+import { UserResolver } from './resolvers/user-resolver';
 import { ListComponent } from './views/list/list.component';
 import { ManageComponent } from './views/manage/manage.component';
 
@@ -23,7 +24,10 @@ const routes: Routes = [
   },
   {
     path:'update/:id',
-    component: ManageComponent
+    component: ManageComponent,
+    resolve: {
+      user: UserResolver
+    }
   },
   {
     path: '**',

@@ -1,5 +1,6 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { map, take, takeUntil } from 'rxjs/operators';
 import { Model } from 'src/app/core/classes/model';
@@ -21,7 +22,8 @@ export class ListComponent implements OnInit, OnDestroy {
   public subscribe$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
   constructor(
-    private service: UserService
+    private service: UserService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -46,6 +48,8 @@ export class ListComponent implements OnInit, OnDestroy {
           console.log(`Got ${users.length} element, element 0 ${users[0] instanceof Model}`);
         })
   }
+
+  public goTo(user: UserModel): void {}
 
   ngOnDestroy(): void {
     this.subscribers.forEach((subscription) => {

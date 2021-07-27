@@ -6,8 +6,6 @@ export class UserModel extends Model<UserModel>{
   public email: string = '';
   public password: string = '';
 
-
-
   public toString(): string {
     return `nickname : ${this.nickname}`
   }

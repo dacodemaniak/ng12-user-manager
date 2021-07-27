@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { delay, dematerialize, map, materialize, mergeMap } from 'rxjs/operators';
 import { notFound, ok } from '../helpers/http-helper';
@@ -14,7 +14,7 @@ const routerMatchers: Map<string, {path: RegExp, method: string, action: any}> =
   .set(
     'all_users',
     {
-      path: /\api\/v1\/user/,
+      path: /\api\/v1\/user$/,
       method: 'GET',
       action: (): Observable<any> => {
         if (users.length) {
@@ -39,6 +39,38 @@ const routerMatchers: Map<string, {path: RegExp, method: string, action: any}> =
         users.push(body);
         localStorage.setItem('users', JSON.stringify(users));
         return ok(body);
+      }
+    }
+  )
+  .set(
+    'user_byid',
+    {
+      path: /\/api\/v1\/user\/\d+$/,
+      method: 'GET',
+      action: (body: any, ...args: any[]): Observable<any> => {
+        const urlParts: string[] = args[0].split('/');
+        console.log(`URL : ${JSON.stringify(urlParts)}`);
+        const rawId: any = urlParts.pop();
+
+        let id: number = 0;
+        if (!isNaN(rawId)) {
+          id = +rawId;
+        } else {
+          return of(
+            new HttpResponse<any>({
+              status: 401,
+              body: {message: `Unauthorized`}
+            })
+          )
+        }
+        console.log(`Try to get user with id : ${id}`);
+        const rawUser: any = users.find((user: any) => user.id === id);
+        if (rawUser !== undefined) {
+          return ok(rawUser);
+        } else {
+          return notFound({message: `User was not found with ${id}`})
+        }
+
       }
     }
   );

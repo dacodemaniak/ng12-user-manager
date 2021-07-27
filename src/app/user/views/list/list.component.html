@@ -13,9 +13,9 @@
         {{ user.id }}
       </td>
       <td>
-        {{ user.nickname }}
+        <a [routerLink]="['/', 'user', 'update', user.id]">{{ user.nickname }}</a>
       </td>
-      <td>
+      <td (click)="goTo(user)">
         {{ user.email }}
       </td>
       <td>
