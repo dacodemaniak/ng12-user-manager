@@ -58,7 +58,7 @@ class FakeBackendService implements HttpInterceptor {
 
     const { url, method, headers, body } = request;
 
-    console.log(`URI ${method} ${url} was intercepted`);
+    console.log(`URI ${method} ${url} was intercepted with ${JSON.stringify(body)}`);
 
     const handleRoute = (): Observable<HttpEvent<any>> => {
       const routes: {path: RegExp, method: string, action: any}[] = [...routerMatchers.values()];

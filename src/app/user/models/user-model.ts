@@ -8,6 +8,10 @@ export class UserModel extends Model<UserModel>{
 
 
 
+  public toString(): string {
+    return `nickname : ${this.nickname}`
+  }
+
   public deserialize(datas: any): UserModel {
     for (const property in datas) {
       if (this.hasOwnProperty(property)) {

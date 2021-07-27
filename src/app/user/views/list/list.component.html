@@ -1,1 +1,26 @@
-<p>list works!</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Nickname</th>
+      <th>Email</th>
+      <th>Password</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td>
+        {{ user.id }}
+      </td>
+      <td>
+        {{ user.nickname }}
+      </td>
+      <td>
+        {{ user.email }}
+      </td>
+      <td>
+        {{ user.password }}
+      </td>
+    </tr>
+  </tbody>
+</table>

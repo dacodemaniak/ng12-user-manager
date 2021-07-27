@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { map, take } from 'rxjs/operators';
+import { filter, map, take, tap } from 'rxjs/operators';
 import { UserModel } from '../../models/user-model';
 import { UserService } from '../../services/user.service';
 
@@ -69,10 +69,14 @@ export class ManageComponent implements OnInit {
     this.service.add(user)
       .pipe(
         take(1),
+        tap((data: UserModel) => {
+          console.log(`Second tap : ${data.toString()}`);
+          console.log(`L'id est bien : ${data.id}`);
+        }),
         map((result: any) => new UserModel().deserialize(result))
       )
       .subscribe((user: UserModel) => {
-        console.log(JSON.stringify(user));
+        console.log('After deserialisation ', user.toString());
       });
   }
 }

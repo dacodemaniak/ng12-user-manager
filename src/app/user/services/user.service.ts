@@ -13,10 +13,25 @@ export class UserService {
     private httpClient: HttpClient
   ) { }
 
-  add(user: UserModel): Observable<any> {
-    return this.httpClient.post(
+  add(user: UserModel): Observable<UserModel> {
+    return this.httpClient.post<UserModel>(
       `${environment.userApi}`,
       user
+    );
+  }
+
+  all(): Observable<any> {
+    return this.httpClient.get<any[]>(
+      `${environment.userApi}`,
+      {
+        observe: 'response'
+      }
+    );
+  }
+
+  public getAll(): Observable<any[]> {
+    return this.httpClient.get<any[]>(
+      `${environment.userApi}`,
     );
   }
 }
