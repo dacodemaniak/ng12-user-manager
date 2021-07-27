@@ -4,6 +4,7 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HTTP_INTERCEPTORS
 import { Observable, of } from 'rxjs';
 import { delay, dematerialize, map, materialize, mergeMap } from 'rxjs/operators';
 import { notFound, ok } from '../helpers/http-helper';
+import { UserModel } from 'src/app/user/models/user-model';
 
 const users: any[] = localStorage.getItem('users') ?
   JSON.parse(localStorage.getItem('users')!) :
@@ -20,6 +21,24 @@ const routerMatchers: Map<string, {path: RegExp, method: string, action: any}> =
           return ok(users);
         }
         return notFound('No users found');
+      }
+    }
+  )
+  .set(
+    'add_user',
+    {
+      path: /\api\/v1\/user/,
+      method: 'POST',
+      action: (body: UserModel): Observable<any> => {
+        let nextId = 1;
+        if (users.length) {
+          nextId = users
+            .sort((u1: UserModel, u2: UserModel) => u2.id - u1.id)[0].id + 1;
+        }
+        body.id = nextId;
+        users.push(body);
+        localStorage.setItem('users', JSON.stringify(users));
+        return ok(body);
       }
     }
   );

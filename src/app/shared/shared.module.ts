@@ -4,10 +4,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RequiredDirective } from './directives/required.directive';
+import { UiModule } from './ui/ui.module';
 
 const sharedModules = [
   HttpClientModule,
-  ReactiveFormsModule
+  ReactiveFormsModule,
+  UiModule
 ];
 
 @NgModule({

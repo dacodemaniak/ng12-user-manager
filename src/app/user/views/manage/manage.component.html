@@ -1,8 +1,11 @@
-<form [formGroup]="form">
-  <input type="text" appRequired car="*" formControlName="nickname" placeholder="Nickname..." autocomplete="off">
-  <div class="error" *ngIf="formControl.nickname.errors && formControl.nickname.touched">
-    Nickname is required...
-  </div>
+<form [formGroup]="form" (ngSubmit)="add()">
+  <mat-form-field>
+    <input type="text" appRequired matInput  formControlName="nickname" data-required="nickname..." placeholder="Nickname..." autocomplete="off">
+    <mat-error *ngIf="formControl.nickname.errors && formControl.nickname.touched">
+      Nickname is required...
+    </mat-error>
+  </mat-form-field>
+
   <input type="mail" formControlName="email" placeholder="Email..." autocomplete="off">
 
   <input type="mail" formControlName="confirmEmail" placeholder="Email..." autocomplete="off">

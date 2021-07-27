@@ -7,16 +7,19 @@ export class RequiredDirective implements OnInit {
 
   @Input() public car: string = '(*)';
 
+  private nativeElement: any;
+
   constructor(
     private element: ElementRef
-  ) { }
+  ) {
+    this.nativeElement = this.element.nativeElement;
+  }
 
   ngOnInit(): void {
-    console.log(`Hey, i'm the directive`);
-    const nativeElement = this.element.nativeElement;
-    const placeholder: string = nativeElement.getAttribute('placeholder');
+
+    const placeholder: string = this.nativeElement.getAttribute('data-required');
     if (placeholder.length) {
-      nativeElement.setAttribute('placeholder', placeholder + ' ' + this.car);
+      this.nativeElement.setAttribute('data-placeholder', placeholder + ' ' + this.car);
     }
   }
 }
