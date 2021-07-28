@@ -1,3 +1,6 @@
-<p>App works!</p>
+<p>{{ 'title' | translate }}</p>
+
+<button type="button" (click)="language('fr')">FR</button>
+<button type="button" (click)="language('en')">EN</button>
 
 <router-outlet></router-outlet>

@@ -9,6 +9,10 @@ import { HomeComponent } from './pages/home/home.component';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import {
+  IntlModule,
+  HttpLoaderFactory
+} from 'my-beautifull-intl';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +24,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CoreModule,
     SharedModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    IntlModule
   ],
   providers: [],
   bootstrap: [AppComponent]
