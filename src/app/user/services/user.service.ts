@@ -1,7 +1,8 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AbstractControl, AsyncValidator, AsyncValidatorFn, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { map, take, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { UserModel } from '../models/user-model';
 
@@ -51,5 +52,45 @@ export class UserService {
     return this.httpClient.get<any[]>(
       `${environment.userApi}`,
     );
+  }
+
+  public byNickname(): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+      return this.httpClient.get<any>(
+        `http://localhost:4200/api/v1/byname/${encodeURI(control.value)}`,
+        {
+          observe: 'response'
+        }
+      )
+      .pipe(
+        take(1),
+        tap((response: HttpResponse<any>) => {
+          console.log(`Response was : ${response.status}`)
+        }),
+        map((response: HttpResponse<any>) => {
+          return response.status === 200 ? {userExists: true} : null
+        })
+      );
+    }
+  }
+
+}
+
+export class MyValidators extends Validators {
+  constructor() {
+    super();
+  }
+
+  public static mustMatch(initialControl: AbstractControl): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      console.log(`${control.value} ${initialControl.value}`);
+      if (control.errors && !control.errors!.mustMatch) {
+        return null;
+      }
+      if (control.value !== initialControl.value) {
+        return {error: true}
+      }
+      return null;
+    }
   }
 }

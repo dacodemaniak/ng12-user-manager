@@ -1,8 +1,9 @@
 <form [formGroup]="form" (ngSubmit)="add()">
   <mat-form-field>
     <input type="text" appRequired matInput  formControlName="nickname" data-required="nickname..." placeholder="Nickname..." autocomplete="off">
-    <mat-error *ngIf="formControl.nickname.errors && formControl.nickname.touched">
-      Nickname is required...
+    <mat-error *ngIf="formControl.nickname.errors && formControl.nickname.touched || formControl.nickname.dirty">
+      <span *ngIf="formControl.nickname.hasError('required')">Nickname is required...</span>
+      <span *ngIf="formControl.nickname.hasError('userExists')">Nickname is already used</span>
     </mat-error>
   </mat-form-field>
 

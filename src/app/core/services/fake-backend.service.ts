@@ -73,6 +73,27 @@ const routerMatchers: Map<string, {path: RegExp, method: string, action: any}> =
 
       }
     }
+  )
+  .set(
+    'user_bynickname',
+    {
+      path: /\/api\/v1\/byname\/\w+$/,
+      method: 'GET',
+      action: (body: any, ...args: any[]): Observable<any> => {
+        const urlParts: string[] = args[0].split('/');
+        console.log(`URL : ${JSON.stringify(urlParts)}`);
+        const rawNick: any = urlParts.pop();
+        const nickname: string = rawNick === undefined ? '' : rawNick;
+        console.log(`Try to get user with nickname : ${nickname}`);
+        const rawUser: any = users.find((user: any) => user.nickname === nickname);
+        if (rawUser !== undefined) {
+          return ok(rawUser);
+        } else {
+          return notFound({message: `User was not found with ${nickname}`})
+        }
+
+      }
+    }
   );
 
 @Injectable(

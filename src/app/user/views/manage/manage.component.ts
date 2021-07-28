@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { filter, map, take, tap } from 'rxjs/operators';
 import { controls } from 'src/app/shared/decorators/model-decorator';
+import { MustMatchValidator } from 'src/app/shared/validators/must-match-validator';
 import { UserModel } from '../../models/user-model';
-import { UserService } from '../../services/user.service';
+import { UserService, MyValidators } from '../../services/user.service';
 
 @Component({
   selector: 'app-manage',
@@ -50,20 +51,28 @@ export class ManageComponent implements OnInit {
           this.form = this.formBuilder.group({
             confirmEmail: [
               user.email,
-              Validators.required
+              MyValidators.required
             ],
             confirmPassword: [
               user.password,
               [
-                Validators.required,
-                Validators.minLength(8)
+                MyValidators.required,
+                MyValidators.minLength(8),
               ]
             ]
-          });
+          }
+          );
           controls.forEach((control: FormControl, controlName: string) => {
             control.setValue(user[controlName]);
             this.form.addControl(controlName, control);
-          })
+          });
+
+          this.form.controls.confirmEmail.setValidators([
+            MyValidators.mustMatch(this.form.controls.email)
+          ]);
+          this.form.controls.nickname.setAsyncValidators(
+            this.service.byNickname()
+          )
       });
 
 
