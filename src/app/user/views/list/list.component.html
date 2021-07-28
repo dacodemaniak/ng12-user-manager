@@ -1,0 +1,38 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th
+        [appSort]="users"
+        data-order="desc"
+        data-name="id"
+        (currentSortCol)="setActive($event)"
+        [ngClass]="{'sortActive': isActive('id')}">#</th>
+      <th
+        [appSort]="users"
+        data-order="desc"
+        data-name="nickname">Nickname</th>
+      <th
+        [appSort]="users"
+        data-order="desc"
+        data-name="id"
+      >Email</th>
+      <th>Password</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td>
+        {{ user.id }}
+      </td>
+      <td>
+        <a [routerLink]="['/', 'user', 'update', user.id]">{{ user.nickname }}</a>
+      </td>
+      <td (click)="goTo(user)">
+        {{ user.email }}
+      </td>
+      <td>
+        {{ user.password }}
+      </td>
+    </tr>
+  </tbody>
+</table>

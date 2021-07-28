@@ -6,16 +6,26 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { HomeComponent } from './pages/home/home.component';
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import {
+  IntlModule,
+  HttpLoaderFactory
+} from 'my-beautifull-intl';
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent
   ],
   imports: [
+    CommonModule,
+    BrowserModule,
     CoreModule,
     SharedModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    IntlModule
   ],
   providers: [],
   bootstrap: [AppComponent]
