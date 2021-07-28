@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { filter, map, take, tap } from 'rxjs/operators';
+import { controls } from 'src/app/shared/decorators/model-decorator';
 import { UserModel } from '../../models/user-model';
 import { UserService } from '../../services/user.service';
 
@@ -37,35 +38,19 @@ export class ManageComponent implements OnInit {
 
     this.route.data
       .pipe(
+        tap((data: any) => console.log(`${JSON.stringify(data)}`)),
         take(1)
       )
       .subscribe((data: any) => {
         if (data.user) {
           user = data.user;
+        } else {
+          user = new UserModel();
+        }
           this.form = this.formBuilder.group({
-            nickname: [
-              user.nickname,
-              Validators.compose([
-                Validators.required,
-                Validators.minLength(8)
-              ])
-            ],
-            email: [
-              user.email,
-              [
-                Validators.required,
-                Validators.pattern(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)
-              ]
-            ],
             confirmEmail: [
               user.email,
               Validators.required
-            ],
-            password: [
-              user.password,
-            [
-              Validators.required,
-              Validators.minLength(8)]
             ],
             confirmPassword: [
               user.password,
@@ -75,7 +60,10 @@ export class ManageComponent implements OnInit {
               ]
             ]
           });
-        }
+          controls.forEach((control: FormControl, controlName: string) => {
+            control.setValue(user[controlName]);
+            this.form.addControl(controlName, control);
+          })
       });
 
 
