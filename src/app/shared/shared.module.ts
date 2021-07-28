@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RequiredDirective } from './directives/required.directive';
 import { UiModule } from './ui/ui.module';
+import { SortDirective } from './directives/sort.directive';
 
 const sharedModules = [
   HttpClientModule,
@@ -14,12 +15,14 @@ const sharedModules = [
 
 @NgModule({
   declarations: [
-    RequiredDirective
+    RequiredDirective,
+    SortDirective
   ],
   imports: [],
   exports: [
     ...sharedModules,
-    RequiredDirective
+    RequiredDirective,
+    SortDirective
   ]
 })
 export class SharedModule { }

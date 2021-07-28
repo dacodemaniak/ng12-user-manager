@@ -1,9 +1,21 @@
 <table class="table">
   <thead>
     <tr>
-      <th>#</th>
-      <th>Nickname</th>
-      <th>Email</th>
+      <th
+        [appSort]="users"
+        data-order="desc"
+        data-name="id"
+        (currentSortCol)="setActive($event)"
+        [ngClass]="{'sortActive': isActive('id')}">#</th>
+      <th
+        [appSort]="users"
+        data-order="desc"
+        data-name="nickname">Nickname</th>
+      <th
+        [appSort]="users"
+        data-order="desc"
+        data-name="id"
+      >Email</th>
       <th>Password</th>
     </tr>
   </thead>

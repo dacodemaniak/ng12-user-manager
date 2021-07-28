@@ -21,6 +21,8 @@ export class ListComponent implements OnInit, OnDestroy {
 
   public subscribe$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
+  public currentCol: string = '';
+
   constructor(
     private service: UserService,
     private router: Router
@@ -50,6 +52,14 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   public goTo(user: UserModel): void {}
+
+  public setActive(currentCol: string): void {
+    this.currentCol = currentCol;
+  }
+
+  public isActive(thCol: string): boolean {
+    return this.currentCol === thCol;
+  }
 
   ngOnDestroy(): void {
     this.subscribers.forEach((subscription) => {
